@@ -1,8 +1,8 @@
 <?php
     $conn = mysqli_connect("localhost" , "root" , "036087" , "board_db");
 
-    $sql = "INSERT INTO board(title , description) 
-    VALUES('{$_POST['title']}' , '{$_POST['description']}')";
+    $sql = "INSERT INTO board(title , description , created) 
+    VALUES('{$_POST['title']}' , '{$_POST['description']}' , NOW())";
 
     if($_POST['title'] !== ""){
         $result = mysqli_query($conn , $sql);
