@@ -3,18 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Create</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    <form action="process_create.php" method="post">
+    <!-- 게시글 생성 -->
+    <form action="process_create.php" method="post" class="form" >
         <p><input class="title" type="text" name="title" placeholder="title" autocomplete="off" autofocus></p>
-        <p><textarea name="description" placeholder="description"></textarea></p>
-        <p>
-            <span>
-                <button><a href="index.php">뒤로</a></button>
-                <input class="submitBtn" type="submit" value="등록">
-            </span>
-        </p>
+        <p><textarea class="description" name="description" placeholder="description"></textarea></p>
+        <p><input class="submitBtn" type="button" value="등록"></p>
     </form>
+    <!-- 뒤로 -->
+    <div class="backBtn">
+        <a href="index.php"><input type="button" value="뒤로"></a>
+    </div>
 </body>
+<script src="create.js"></script>
 </html>

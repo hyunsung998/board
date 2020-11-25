@@ -1,22 +1,21 @@
 <?php
     $conn = mysqli_connect("localhost" , "root" , "036087" , "board_db");
 
+    $filtered = array(
+        'title' => mysqli_real_escape_string($conn , $_POST['title']),
+        'description' => mysqli_real_escape_string($conn , $_POST['description'])
+    );
+    
     $sql = "INSERT INTO board(title , description , created) 
-    VALUES('{$_POST['title']}' , '{$_POST['description']}' , NOW())";
+    VALUES('{$filtered['title']}' , '{$filtered['description']}' , NOW())";
 
-    if($_POST['title'] !== ""){
-        $result = mysqli_query($conn , $sql);
+    $result = mysqli_query($conn , $sql);
 
-        if($result === true){
-            echo '게시글이 등록되었습니다. <a href="index.php">게시판으로 이동하기</a>';
-        }
-        else{
-            echo '오류가 발생했습니다.';
-            echo mysqli_error($conn);
-        }
+    if($result === true){
+        header('Location: index.php');
     }
     else{
-        echo '<script>alert("제목을 입력해주세요.")</script>';
-        echo '<a href="create.php">다시 작성하기</a>'; 
+        echo '오류가 발생했습니다.';
+        echo error_log(mysqli_error($conn));
     }
 ?>

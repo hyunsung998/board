@@ -1,21 +1,21 @@
 <?php
     $conn = mysqli_connect("localhost" , "root" , "036087" , "board_db");
 
-    $sql = "UPDATE board SET title='{$_POST['title']}' , description='{$_POST['description']}' WHERE id={$_POST['id']}";
+    $filtered = array(
+        'title' => mysqli_real_escape_string($conn , $_POST['title']),
+        'description' => mysqli_real_escape_string($conn , $_POST['description']),
+        'id' => mysqli_real_escape_string($conn , $_POST['id'])
+    );
 
-    if($_POST['title'] !== ""){
-        $result = mysqli_query($conn , $sql);
+    $sql = "UPDATE board SET title='{$filtered['title']}' , description='{$filtered['description']}' WHERE id={$filtered['id']}";
 
-        if($result === true){
-            echo '수정이 완료되었습니다. <a href="index.php">게시판으로 이동하기</a>';
-        }
-        else{
-            echo '오류가 발생했습니다.';
-            echo mysqli_error($conn);
-        }
+    $result = mysqli_query($conn , $sql);
+
+    if($result === true){
+        header("Location: index.php");
     }
     else{
-        echo '<script>alert("제목을 입력해주세요.")</script>';
-        echo "<a href=\"content.php?id={$_POST['id']}\">다시 수정하기</a>";
+        echo '오류가 발생했습니다.';
+        echo error_log(mysqli_error($conn)); 
     }
 ?>
