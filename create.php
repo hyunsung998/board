@@ -17,5 +17,5 @@
         <a href="index.php"><input type="button" value="뒤로"></a>
     </div>
 </body>
-<script src="create.js"></script>
+<script src="creation.js"></script>
 </html>

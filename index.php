@@ -6,9 +6,15 @@
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    <div>
+    <div class="headerTitle">
         <h1>게시판</h1>
         <p>자유롭게 게시글을 작성해주세요.</p>
+    </div>
+    <div class="searchCont">
+        <form action="search.php" method="post" class="form">
+            <input type="text" name="title" autocomplete="off" placeholder="검색할 제목을 입력해주세요." class="title">
+            <input type="button" value="검색" class="submitBtn">
+        </form>
     </div>
     <table>
         <tr>
@@ -23,17 +29,23 @@
 
             $result = mysqli_query($conn , $sql);
 
-            while($row = mysqli_fetch_array($result)){
-                $id = $row['id'];
-                $escaped_title = htmlspecialchars($row['title']); 
-                $created = $row['created'];
+            // 테이블 레코드의 총 개수
+            $resultNumRows = mysqli_num_rows($result); 
+            
+            // 테이블 모든 레코드를 배열로 반환
+            $resultAllRows = mysqli_fetch_all($result);
+            
+            for($i=0; $i < $resultNumRows; $i++){
+                $id = $resultAllRows[$i][0];
+                $title = htmlspecialchars($resultAllRows[$i][1]);
+                $created = $resultAllRows[$i][3]; 
         ?>
 
          <tr>
             <td><?=$id?></td>
             <td>
                 <?php
-                    echo "<a href=\"content.php?id={$id}\">{$escaped_title}</a>"
+                    echo "<a href=\"content.php?id={$id}\">{$title}</a>"
                 ?>
             </td>
             <td><?=$created?></td>
@@ -47,4 +59,5 @@
     <p><a href="create.php"><input type="button" value="글쓰기"></a></p>        
     </div>
 </body>
+<script src="search.js"></script>
 </html>

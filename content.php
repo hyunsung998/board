@@ -3,16 +3,29 @@
 
     $filtered_id = mysqli_real_escape_string($conn , $_GET['id']);
 
-    $sql = "SELECT * FROM board WHERE id={$filtered_id}";
+    // 아이디가 데이터베이스 존재하는지 확인
+    $exists_sql = "SELECT EXISTS (SELECT * FROM board WHERE id={$filtered_id})";
 
-    $result = mysqli_query($conn , $sql);
+    $exists_result = mysqli_query($conn , $exists_sql);
 
-    $row = mysqli_fetch_array($result);
+    $exists_row = mysqli_fetch_array($exists_result);
 
-    $filtered = array(
-        'title' => htmlspecialchars($row['title']),
-        'description' => htmlspecialchars($row['description'])
-    );
+    // 1일 경우 true 0일 경우 false
+    if($exists_row[0] === "1"){
+        $sql = "SELECT * FROM board WHERE id={$filtered_id}";
+
+        $result = mysqli_query($conn , $sql);
+
+        $row = mysqli_fetch_array($result);
+
+        $filtered = array(
+            'title' => htmlspecialchars($row['title']),
+            'description' => htmlspecialchars($row['description'])
+        );
+    }
+    else{
+        // redirect
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,4 +53,5 @@
     </div>  
 </body>
 <script src="content.js"></script>
+<script src="delete.js"></script>
 </html>
