@@ -1,9 +1,15 @@
+<?php
+    // 브라우저에서는 한 번 불러온 css,js 파일을 캐시 해두기 때문에 수정을 해도 바로 적용이 안된다.
+    // filemtime 함수는 파일 내용이 마지막으로 수정 된 시간을 반환함.
+    $css = "index.css";
+    $search = "search.js";
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Board</title>
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href=<?=$css.'?'.filemtime($css)?>>
 </head>
 <body>
     <div class="headerTitle">
@@ -35,6 +41,7 @@
             // 테이블 모든 레코드를 배열로 반환
             $resultAllRows = mysqli_fetch_all($result);
             
+            // 테이블 레코드의 총 개수만큼 테이블 행 생성
             for($i=0; $i < $resultNumRows; $i++){
                 $id = $resultAllRows[$i][0];
                 $title = htmlspecialchars($resultAllRows[$i][1]);
@@ -59,5 +66,5 @@
     <p><a href="create.php"><input type="button" value="글쓰기"></a></p>        
     </div>
 </body>
-<script src="search.js"></script>
+<script src=<?=$search.'?'.filemtime($search)?>></script>
 </html>

@@ -1,9 +1,13 @@
+<?php
+    $css = "index.css";
+    $search = "search.js";
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Board</title>
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href=<?=$css.'?'.filemtime($css)?>>
 </head>
 <body>
     <div class="headerTitle">
@@ -34,29 +38,26 @@
         // 입력된 타이틀과 같은 레코드의 총 개수
         $resultNumRows = mysqli_num_rows($result); 
         
-        // 레코드를 배열로 반환
+        // 모든 레코드를 배열로 반환
         $resultAllRows = mysqli_fetch_all($result);
 
-        // 레코드의 개수가 0이 아닐 경우
+        // 레코드의 개수가 0이 아닐 경우, 테이블 로우 생성.
         if($resultNumRows !== 0){
             for($i=0; $i<$resultNumRows; $i++){
                 $id = $resultAllRows[$i][0];
                 $title = htmlspecialchars($resultAllRows[$i][1]); 
                 $created = $resultAllRows[$i][3];
-
-                // 함수의 매개변수로 $id,title,created 값을 전달해주지 못했다.
-
-                echo "<script>
-                    var tr_elem = document.createElement('tr');
-                    var table_elem = document.querySelector('.table');
-
-                    tr_elem.innerHTML =
-                    '<td>{$id}</td>' +
-                    '<td><a href=content.php?id={$id}>{$title}</a></td>' +
-                    '<td>{$created}</td>';
-                
-                    table_elem.appendChild(tr_elem);
-                </script>";
+            ?>
+        <tr>
+            <td><?=$id?></td>
+            <td>
+                <?php
+                    echo "<a href=\"content.php?id={$id}\">{$title}</a>"
+                ?>
+            </td>
+            <td><?=$created?></td>
+         </tr> 
+            <?php
             }
         }
         else{
@@ -68,5 +69,5 @@
         <a href="index.php"><input type="button" value="게시판으로 이동"></a>     
     </div>
     </body>
-    <script src="search.js"></script>
+    <script src=<?=$search.'?'.filemtime($search)?>"></script>
 </html>

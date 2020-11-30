@@ -1,9 +1,13 @@
+<?php
+    $css = "index.css";
+    $create = "create.js";
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Create</title>
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href=<?=$css.'?'.filemtime($css)?>>
 </head>
 <body>
     <!-- 게시글 생성 -->
@@ -17,5 +21,5 @@
         <a href="index.php"><input type="button" value="뒤로"></a>
     </div>
 </body>
-<script src="creation.js"></script>
+<script src=<?=$create.'?'.filemtime($create)?>></script>
 </html>

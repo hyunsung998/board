@@ -1,4 +1,6 @@
 <?php
+    session_start();
+
     $conn = mysqli_connect("localhost" , "root" , "036087" , "board_db");
 
     $filtered_id = mysqli_real_escape_string($conn , $_GET['id']);
@@ -10,7 +12,7 @@
 
     $exists_row = mysqli_fetch_array($exists_result);
 
-    // 1일 경우 true 0일 경우 false
+    // 1일 경우 true. 즉, 데이터베이스에 존재함. 0일 경우 false
     if($exists_row[0] === "1"){
         $sql = "SELECT * FROM board WHERE id={$filtered_id}";
 
@@ -24,15 +26,22 @@
         );
     }
     else{
-        // redirect
+        //redirect
+        $_SESSION['error'] = mysqli_error($conn);
+        header("location: error.php");
     }
+?>
+<?php
+$update = "update.js";
+$delete = "delete.js";
+$css = "index.css";
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Content</title>
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="<?=$css.'?'.filemtime($css)?>">
 </head>
 <body>
     <!-- 수정 -->
@@ -52,6 +61,6 @@
         <a href="index.php"><input type="button" value="뒤로"></a>
     </div>  
 </body>
-<script src="content.js"></script>
-<script src="delete.js"></script>
+<script src=<?=$update.'?'.filemtime($update)?>></script>
+<script src=<?=$delete.'?'.filemtime($delete)?>></script>
 </html>
