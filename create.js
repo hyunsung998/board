@@ -8,8 +8,8 @@ function confirmDatas() {
   if (title_value === "" || title_value.length <= 2) {
     alert("제목을 3글자 이상 입력해주세요.");
     title.focus();
-  } else if (description_value === "" || description_value.length <= 14) {
-    alert("내용을 15글자 이상 입력해주세요.");
+  } else if (description_value === "" || description_value.length <= 9) {
+    alert("내용을 10글자 이상 입력해주세요.");
     description.focus();
   } else {
     form.submit();

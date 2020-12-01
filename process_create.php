@@ -9,7 +9,7 @@
     $description_len = mb_strlen($_POST['description']);
 
     // 타이틀 , 내용이 빈문자열 or 정해놓은 문자의 개수가 맞는지 확인
-    if(!empty($_POST['title']) && !empty($_POST['description']) && $title_len > 2 &&  $description_len > 14){
+    if(!empty($_POST['title']) && !empty($_POST['description']) && $title_len > 2 &&  $description_len > 9){
         $filtered = array(
             'title' => mysqli_real_escape_string($conn , $_POST['title']),
             'description' => mysqli_real_escape_string($conn , $_POST['description'])

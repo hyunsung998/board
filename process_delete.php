@@ -19,6 +19,7 @@
         $result = mysqli_query($conn , $sql);
 
         if($result === true){
+            //redirect
             echo "<script>alert('게시글이 삭제되었습니다.'); location.href=\"index.php\";</script>";
         }
         else{
