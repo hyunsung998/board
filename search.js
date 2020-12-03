@@ -3,8 +3,8 @@ function confirmData() {
   var form = document.querySelector(".form");
   var title_value = title.value;
 
-  if (title_value === "" || title_value.length <= 2) {
-    alert("검색할 제목을 3글자 이상 입력해주세요.");
+  if (title_value === "") {
+    alert("검색 제목을 입력해주세요.");
     title.focus();
   } else {
     form.submit();
