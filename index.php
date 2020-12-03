@@ -33,7 +33,7 @@
 <?php 
                 if(isset($_SESSION['search_txt'])){
                     echo $_SESSION['search_txt'];
-                    unset($_SESSION['search_txt']);
+                    // unset($_SESSION['search_txt']);
                 }
                 else if(isset($_GET['title'])){
                     echo $_GET['title'];
@@ -128,9 +128,15 @@
             }
         ?>
     </table>
+    <?php
+        $create = "create.php";
+        $index = "index.php";
+        $write = "글쓰기";
+        $main = "처음으로";    
+    ?>
     <div class="writeBtn">
         <p>
-            <a href="create.php"\>
+            <a href="<?php?>">
                 <input type="button" value="글쓰기">
             </a>
         </p>        
