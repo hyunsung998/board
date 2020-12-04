@@ -44,7 +44,6 @@
 
     if($result === true){
          // redirect
-        $_SESSION['success_txt'] = "게시글이 작성되었습니다.";
         header("location: index.php");
     }
     else{

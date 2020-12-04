@@ -66,7 +66,6 @@
         
     if($result === true){
         //redirect
-        $_SESSION['success_txt'] = "게시글이 수정되었습니다.";
         header("location: content.php?id={$filtered_id}");
     }
     else{

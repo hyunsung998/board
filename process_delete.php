@@ -37,8 +37,6 @@
 
     if($result === true){
         //redirect
-        $_SESSION['success_txt'] = "게시글이 삭제되었습니다.";
-
         // 제목을 검색하고 클릭한 게시글이 삭제 되었을 때 검색 페이지로 이동할 수 있도록 처리
         if(isset($_POST['keyword'])){
             $filtered_keyword = mysqli_real_escape_string($conn , $_POST['keyword']);

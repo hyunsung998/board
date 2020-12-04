@@ -1,7 +1,10 @@
 function confirmDelete() {
   var deleteForm_elem = document.querySelector(".deleteForm");
 
-  if (confirm("정말 삭제하시겠습니까?") == true) {
+  if (
+    confirm("삭제된 게시물은 복구할 수 없습니다. 정말 삭제하시겠습니까?") ==
+    true
+  ) {
     deleteForm_elem.submit();
   } else {
     return false;

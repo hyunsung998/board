@@ -5,11 +5,6 @@
         echo "<script>alert('{$_SESSION['error_txt']}')</script>";
         unset($_SESSION['error_txt']);
     }
-    
-    if(isset($_SESSION['success_txt'])){
-        echo "<script>alert('{$_SESSION['success_txt']}')</script>";
-        unset($_SESSION['success_txt']);
-    }
 ?>
 <?php
     require __DIR__ . '/vendor/autoload.php';
@@ -67,8 +62,8 @@ $delete_js = "delete.js";
     </div> 
 
     <!-- 수정 , 삭제 , 메인이동 버튼 -->
-    <div class="button">
         <!-- 검색한 게시글을 클릭한 뒤 검색내역 페이지로 이동할 수 있도록 처리 -->
+    <div class="button">
         <a href="
             <?php
                 if(isset($_GET['keyword'])){
@@ -85,9 +80,9 @@ $delete_js = "delete.js";
                 else{
                     echo "목록";
                 }
-            ?>">
+            ?>" class="listBtn">
         </a>
-
+                
         <a href="update.php?id=<?=$filtered_id?>">
             <input type="button" value="수정" class="modifyBtn">
         </a>
@@ -95,14 +90,18 @@ $delete_js = "delete.js";
         <form action="process_delete.php" method="post" class="deleteForm">
             <input type="hidden" name="id" value="<?=$filtered_id?>">
             <!-- 제목을 검색하고 클릭한 게시글이 삭제 되었을 때 검색 페이지로 이동할 수 있도록 처리 -->
-            <input type="hidden" name="keyword" value="<?php
+            <input type="hidden" name="<?php
+                if(isset($_GET['keyword'])){
+                    echo "keyword";
+                }
+            ?>" value="<?php
                 if(isset($_GET['keyword'])){
                     echo $_GET['keyword'];
                 }
             ?>">
             <input class="deleteBtn" type="button" value="삭제">
-        </form> 
-    </div>
+        </form>
+    </div> 
 </body>
 <script src=<?=$delete_js.'?'.filemtime($delete_js)?>></script>
 </html>

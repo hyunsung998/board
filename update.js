@@ -1,7 +1,7 @@
 function confirmCancel() {
   if (confirm("게시글 수정을 취소하시겠습니까?") == true) {
-    var parameter = document.location.search;
-    location.href = "content.php" + parameter;
+    var url_parameter = document.location.search;
+    location.href = "content.php" + url_parameter;
   } else {
     return false;
   }

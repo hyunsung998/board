@@ -5,11 +5,6 @@
         echo "<script>alert('{$_SESSION['error_txt']}')</script>";
         unset($_SESSION['error_txt']);
     }
-    
-    if(isset($_SESSION['success_txt'])){
-        echo "<script>alert('{$_SESSION['success_txt']}')</script>";
-        unset($_SESSION['success_txt']);
-    }
 ?>
 <?php
     require __DIR__ . '/vendor/autoload.php';

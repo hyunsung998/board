@@ -5,11 +5,6 @@
         echo "<script>alert('{$_SESSION['error_txt']}')</script>";
         unset($_SESSION['error_txt']);
     }
-
-    if(isset($_SESSION['success_txt'])){
-        echo "<script>alert('{$_SESSION['success_txt']}')</script>";
-        unset($_SESSION['success_txt']);
-    }
 ?>
 <?php
     $index_css = "index.css";
@@ -124,7 +119,7 @@
                     else{
                         echo "hidden";
                     }
-                ?>" value="목록">
+                ?>" value="목록" class="listBtn">
             </a>
         </p>   
         <p>
@@ -138,7 +133,7 @@
                     echo "create.php";
                 }
             ?>">
-                <input type="button" value="글쓰기">
+                <input type="button" value="글쓰기" class="writeBtn">
             </a>
         </p>        
     </div>
