@@ -1,3 +1,18 @@
+function confirmCancel() {
+  if (confirm("게시글 수정을 취소하시겠습니까?") == true) {
+    var parameter = document.location.search;
+    location.href = "content.php" + parameter;
+  } else {
+    return false;
+  }
+}
+
+function setCancelBtnClickEvent() {
+  var cancel_btn_elem = document.querySelector(".cancelBtn");
+
+  cancel_btn_elem.addEventListener("click", confirmCancel);
+}
+
 function confirmDatas() {
   var title = document.querySelector(".title");
   var description = document.querySelector(".description");
@@ -30,6 +45,7 @@ function init() {
   });
 
   setSubmitBtnClickEvent();
+  setCancelBtnClickEvent();
 }
 
 init();

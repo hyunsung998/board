@@ -17,6 +17,8 @@
         else{
             // redirect
             $_SESSION['error_txt'] = "제목과 내용을 양식에 맞게 작성해주세요.";
+
+            // 입력한 제목과 내용을 기억하기 위해 session 사용
             $_SESSION['title'] = "{$_POST['title']}";
             $_SESSION['description'] = "{$_POST['description']}";
             header("location: create.php");
@@ -47,10 +49,8 @@
     }
     else{
         // redirect
-        $_SESSION['error_txt'] = "게시글을 작성하는 과정에서 오류가 발생했습니다. 다시 시도해주세요.";
-        $_SESSION['title'] = "{$filtered['title']}";
-        $_SESSION['description'] = "{$filtered['description']}";
-        header("location: create.php");
+        $_SESSION['error_txt'] = "오류가 발생했습니다. 다시 시도해주세요.";
+        header("location: index.php");
     }
 ?>
 

@@ -4,7 +4,6 @@ function confirmDelete() {
   if (confirm("정말 삭제하시겠습니까?") == true) {
     deleteForm_elem.submit();
   } else {
-    alert("삭제가 취소되었습니다.");
     return false;
   }
 }

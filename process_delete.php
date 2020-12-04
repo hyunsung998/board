@@ -24,9 +24,8 @@
         }
         else{
             //redirect
-            $_SESSION['error_txt'] = "삭제 가능한 게시글이 존재하지 않습니다.  다시 시도해주세요.";
+            $_SESSION['error_txt'] = "게시글이 존재하지 않습니다.";
             header("location: index.php");
-            die();
         }
     }
 
@@ -39,11 +38,20 @@
     if($result === true){
         //redirect
         $_SESSION['success_txt'] = "게시글이 삭제되었습니다.";
-        header("location: index.php");
+
+        // 제목을 검색하고 클릭한 게시글이 삭제 되었을 때 검색 페이지로 이동할 수 있도록 처리
+        if(isset($_POST['keyword'])){
+            $filtered_keyword = mysqli_real_escape_string($conn , $_POST['keyword']);
+
+            header("location: index.php?keyword={$filtered_keyword}");
+        }
+        else{
+            header("location: index.php");
+        }
     }
     else{
         //redirect 
-        $_SESSION['error_txt'] = "게시글을 삭제하는 과정에서 오류가 발생했습니다. 다시 시도해주세요.";
-        header("location: content.php?id={$filtered_id}");
+        $_SESSION['error_txt'] = "오류가 발생했습니다. 다시 시도해주세요.";
+        header("location: index.php");
     }
 ?>

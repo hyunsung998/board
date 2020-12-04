@@ -3,55 +3,72 @@
 body {
   height: 100vh;
 }
-.headerTitle {
+.header {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-}
-div p {
-  margin-bottom: 50px;
-}
-table {
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  margin: 0 auto;
-  margin-top: 40px;
-  margin-bottom: 40px;
-}
-table td {
-  padding: 20px;
-}
-.writeBtn {
-  display: flex;
-  justify-content: center;
+  margin-bottom: 30px;
 }
 .form {
   display: flex;
   justify-content: center;
-  align-items: center;
   flex-direction: column;
-}
-.backBtn {
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
+  align-items: center;
+  margin-bottom: 15px;
 }
 .title {
   width: 300px;
   margin: 10px 0;
+}
+table {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  margin: 0 auto;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+table td {
+  padding: 20px;
+}
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.moveBtn {
+  margin-right: 20px;
 }
 .description {
   width: 300px;
   height: 100px;
   margin-bottom: 10px;
 }
-.deleteForm {
+.contScreen {
   display: flex;
   justify-content: center;
-  margin-top: 10px;
-}
-.searchCont {
-  display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+  margin-bottom: 20px;
+}
+.cancelBtn {
+  display: block;
+  margin: 0 auto;
+}
+.submitBtn {
+  margin-bottom: 10px;
+}
+.contTitle {
+  border: 1px solid black;
+  width: 300px;
+  height: 20px;
+  margin-top: 15px;
+}
+.contDescription {
+  border: 1px solid black;
+  width: 300px;
+  height: 100px;
+  margin-top: 15px;
+}
+.modifyBtn {
+  margin: 0px 20px;
 }
