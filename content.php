@@ -44,16 +44,15 @@
     }
 ?>
 <?php
-$index_css = "index.css";
-$update_js = "update.js";
-$delete_js = "delete.js";
+$index_css = "./asset/CSS/index.css";
+$delete_js = "./asset/JS/delete.js";
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Content</title>
-    <link rel="stylesheet" href="<?=$index_css.'?'.filemtime($index_css)?>">
+    <link rel="stylesheet" href=<?="./asset/CSS/index.css?".filemtime($index_css)?>>
 </head>
 <body>
     <div class="contScreen">
@@ -103,5 +102,5 @@ $delete_js = "delete.js";
         </form>
     </div> 
 </body>
-<script src=<?=$delete_js.'?'.filemtime($delete_js)?>></script>
+<script src=<?="./asset/JS/delete.js?".filemtime($delete_js)?>></script>
 </html>

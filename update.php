@@ -44,15 +44,15 @@
     }
 ?>
 <?php
-$index_css = "index.css";
-$update_js = "update.js";
+$index_css = "./asset/CSS/index.css";
+$update_js = "./asset/JS/update.js";
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Update</title>
-    <link rel="stylesheet" href="<?=$index_css.'?'.filemtime($index_css)?>">
+    <link rel="stylesheet" href=<?="./asset/CSS/index.css?".filemtime($index_css)?>>
 </head>
 <body>
     <form action="process_update.php" method="POST" class="form">
@@ -84,5 +84,5 @@ $update_js = "update.js";
     </form>
     <input type="button" value="취소" class="cancelBtn">
 </body>
-<script src=<?=$update_js.'?'.filemtime($update_js)?>></script>
+<script src=<?="./asset/JS/update.js?".filemtime($update_js)?>></script>
 </html>

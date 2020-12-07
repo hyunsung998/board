@@ -1,7 +1,6 @@
 function confirmCancel() {
-  if (confirm("게시글 수정을 취소하시겠습니까?") == true) {
-    var url_parameter = document.location.search;
-    location.href = "content.php" + url_parameter;
+  if (confirm("게시글 작성을 취소하시겠습니까?") == true) {
+    window.history.back();
   } else {
     return false;
   }
@@ -31,10 +30,10 @@ function confirmDatas() {
   }
 }
 
-function setSubmitBtnClickEvent() {
-  var submit_btn_elem = document.querySelector(".submitBtn");
+function setCreateSubmitBtnClickEvent() {
+  var create_submitBtn_elem = document.querySelector(".submitBtn");
 
-  submit_btn_elem.addEventListener("click", confirmDatas);
+  create_submitBtn_elem.addEventListener("click", confirmDatas);
 }
 
 function init() {
@@ -43,8 +42,7 @@ function init() {
   form.addEventListener("submit", function (e) {
     e.preventDefault();
   });
-
-  setSubmitBtnClickEvent();
+  setCreateSubmitBtnClickEvent();
   setCancelBtnClickEvent();
 }
 

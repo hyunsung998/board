@@ -19,41 +19,39 @@
 
     // 아이디 존재여부 확인 함수
     function validationId($target_row){
-        if($target_row === "1"){
-            return true;
-        }
-        else{
+        if($target_row !== "1"){
             //redirect
             $_SESSION['error_txt'] = "게시글이 존재하지 않습니다.";
             header("location: index.php");
-            die();
         }
     }
 
-    // 타이틀,내용 양식검사 확인 함수
-    function validationText($title , $description , $t_len , $d_len){
-        if($title !== "" && $description !== "" && $t_len > 2 && $d_len > 9){
-            return true;
-        }
-        else{
+    function checkText($text){
+        return isset($text);
+    }
+
+    function checkTextLen($text , $num){
+        return mb_strlen($text) > $num;
+    }
+    
+    $validationText = function ($title , $description) use($filtered_id){
+        $result = checkText($title) && checkText($description) && checkTextLen($title , 2) && checkTextLen($description , 9);
+
+        if(!$result){
             // redirect
-            $_SESSION['error_txt'] = "제목과 내용을 양식에 맞게 입력해주세요.";
-            
-            // 수정 과정에서 오류 발생시 입력했던 내용을 기억하기위해 session에 저장
-            $_SESSION['title'] = "{$_POST['title']}";
-            $_SESSION['description'] = "{$_POST['description']}";
-            header("location: update.php?id={$GLOBALS['filtered_id']}");
+            $_SESSION['error_txt'] = "제목과 내용을 양식에 맞게 작성해주세요.";
+
+            // 입력한 제목과 내용을 기억하기 위해 session 사용
+            $_SESSION['title'] = "{$title}";
+            $_SESSION['description'] = "{$description}";
+            header("location: update.php?id={$filtered_id}");
             die();
         }
-    }
+    };
 
     validationId($exists_row[0]);
 
-    $title_len = mb_strlen($_POST['title']);
-
-    $description_len = mb_strlen($_POST['description']);
-
-    validationText($_POST['title'] , $_POST['description'] , $title_len , $description_len);
+    $validationText($_POST['title'] , $_POST['description']);
 
     $filtered = array(
         'title' => mysqli_real_escape_string($conn , $_POST['title']),
