@@ -42,6 +42,11 @@ function init() {
   form.addEventListener("submit", function (e) {
     e.preventDefault();
   });
+
+  var title = document.querySelector(".title");
+
+  title.focus();
+
   setCreateSubmitBtnClickEvent();
   setCancelBtnClickEvent();
 }

@@ -53,6 +53,7 @@ $delete_js = "./asset/JS/delete.js";
     <meta charset="UTF-8">
     <title>Content</title>
     <link rel="stylesheet" href=<?="./asset/CSS/index.css?".filemtime($index_css)?>>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 </head>
 <body>
     <div class="contScreen">
@@ -79,11 +80,11 @@ $delete_js = "./asset/JS/delete.js";
                 else{
                     echo "목록";
                 }
-            ?>" class="listBtn">
+            ?>" class="listBtn btn btn-default">
         </a>
                 
         <a href="update.php?id=<?=$filtered_id?>">
-            <input type="button" value="수정" class="modifyBtn">
+            <input type="button" value="수정" class="modifyBtn btn btn-default">
         </a>
 
         <form action="process_delete.php" method="post" class="deleteForm">
@@ -98,7 +99,7 @@ $delete_js = "./asset/JS/delete.js";
                     echo $_GET['keyword'];
                 }
             ?>">
-            <input class="deleteBtn" type="button" value="삭제">
+            <input class="deleteBtn btn btn-default" type="button" value="삭제">
         </form>
     </div> 
 </body>

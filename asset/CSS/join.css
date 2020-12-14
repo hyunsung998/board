@@ -1,0 +1,64 @@
+.join_group {
+  margin: 0 auto;
+}
+.info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.join_txt {
+  width: 130px;
+  height: 50px;
+}
+.join_input {
+  width: 250px;
+  padding: 10px;
+}
+.join_btn_wrap {
+  display: flex;
+  justify-content: center;
+}
+#join_btn {
+  width: 300px;
+  padding: 10px;
+  margin: 10px 0;
+  cursor: pointer;
+}
+.cancel_btn_wrap {
+  display: flex;
+  justify-content: center;
+}
+.cancel_btn {
+  width: 300px;
+  padding: 10px;
+  cursor: pointer;
+}
+.msgbox {
+  margin-top: 10px;
+  margin-bottom: 15px;
+  font-size: 13px;
+  color: rgba(0, 0, 0, 0.6);
+}
+.form_txt_pw {
+  display: flex;
+  flex-direction: column;
+}
+.pw {
+  margin-bottom: 5px;
+}
+#id_able {
+  color: green;
+  display: none;
+}
+#id_unable {
+  color: red;
+  display: none;
+}
+#pw_able {
+  color: green;
+  display: none;
+}
+#pw_unable {
+  color: red;
+  display: none;
+}

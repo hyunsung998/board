@@ -1,0 +1,33 @@
+.login_group {
+  margin: 0 auto;
+  width: 300px;
+}
+#login_form {
+  display: flex;
+  flex-direction: column;
+}
+#id {
+  padding: 10px;
+  margin-bottom: 10px;
+}
+#pw {
+  padding: 10px;
+  margin-bottom: 10px;
+}
+#login_btn {
+  padding: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+.join_page_btn {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+.back_btn {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}

@@ -16,21 +16,30 @@
     <meta charset="UTF-8">
     <title>Board</title>
     <link rel="stylesheet" href=<?="./asset/CSS/index.css?".filemtime($index_css)?>>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 </head>
 <body>
+    <div class="index_login_wrap">
+        <a href="login.php">
+            <button class="index_login_btn">로그인</button>
+        </a>
+    </div>
+
     <div class="header">
         <h1>게시판</h1>
         <p>자유롭게 게시글을 작성해주세요.</p>
     </div>
 
     <form action="index.php" method="GET" class="form">
-        <input type="text" name="keyword" autocomplete="off" placeholder="제목을 입력해주세요." class="title"
+        <div class="form-group">
+        <input type="text" name="keyword" autocomplete="off" placeholder="제목을 입력해주세요." class="title form-control"
         value="<?=(isset($_GET['keyword'])) ? $_GET['keyword'] : "" ?>">
         <!-- 삼항연산자 사용하여 input에 검색어 표시 -->
-        <input type="button" value="검색" class="submitBtn">
+        </div>
+        <input type="button" value="검색" class="submitBtn btn btn-default">
     </form>
 
-    <table>
+    <table class="test table table-condensed">
         <tr>
             <td>No</td>
             <td>제목</td>
@@ -138,7 +147,7 @@
                     else{
                         echo "hidden";
                     }
-                ?>" value="목록" class="listBtn">
+                ?>" value="목록" class="listBtn btn btn-default">
             </a>
         </p>   
         <p>
@@ -152,7 +161,7 @@
                     echo "create.php";
                 }
             ?>">
-                <input type="button" value="글쓰기" class="writeBtn">
+                <input type="button" value="글쓰기" class="writeBtn btn btn-default">
             </a>
         </p>        
     </div>

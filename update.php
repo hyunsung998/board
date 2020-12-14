@@ -53,6 +53,7 @@ $update_js = "./asset/JS/update.js";
     <meta charset="UTF-8">
     <title>Update</title>
     <link rel="stylesheet" href=<?="./asset/CSS/index.css?".filemtime($index_css)?>>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 </head>
 <body>
     <form action="process_update.php" method="POST" class="form">
@@ -80,9 +81,9 @@ $update_js = "./asset/JS/update.js";
             }
 ?>
 </textarea>
-        <input type="button" value="등록" class="submitBtn">
+        <input type="button" value="등록" class="submitBtn btn btn-default">
+        <input type="button" value="취소" class="cancelBtn btn btn-default">
     </form>
-    <input type="button" value="취소" class="cancelBtn">
 </body>
 <script src=<?="./asset/JS/update.js?".filemtime($update_js)?>></script>
 </html>
