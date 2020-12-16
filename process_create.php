@@ -39,13 +39,35 @@
         'description' => mysqli_real_escape_string($conn , $_POST['description'])
     );
 
-    $sql = "INSERT INTO topic(title , description , created) 
-    VALUES('{$filtered['title']}' , '{$filtered['description']}' , NOW())";
+    // 로그인한 유저의 u_id를 확인하는 함수
+    $validateUserId = function ($user_id) use($conn){
+        if(isset($user_id)){
+            $sql = "SELECT * FROM user WHERE id='{$user_id}'";
+
+            $result = mysqli_query($conn , $sql);
+
+            $row = mysqli_fetch_array($result);
+
+            $u_id = htmlspecialchars($row[0]);
+
+            return $u_id;
+        }
+        else{
+            // redirect
+            $_SESSION['error_txt'] = "오류가 발생했습니다. 다시 시도해주세요.";
+            header("location: index.php");
+        }
+    };
+
+    $u_id = $validateUserId($_SESSION['user_id']);
+
+    $sql = "INSERT INTO topic(title , description , created , user_id) 
+    VALUES('{$filtered['title']}' , '{$filtered['description']}' , NOW() , '{$u_id}')";
 
     $result = mysqli_query($conn , $sql);
 
     if($result === true){
-         // redirect
+        // redirect
         header("location: index.php");
     }
     else{

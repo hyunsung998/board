@@ -4,7 +4,6 @@ function confirmData() {
   var title_value = title.value;
 
   if (title_value === "") {
-    alert("검색어를 입력해주세요.");
     title.focus();
   } else {
     form.submit();

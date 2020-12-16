@@ -15,33 +15,45 @@
         're_pw' => mysqli_real_escape_string($conn , $_POST['re_pw'])
     );
 
-    $sql = "SELECT EXISTS (SELECT * FROM user WHERE id=\"{$filtered['id']}\")";
+    $sql = "SELECT EXISTS (SELECT * FROM user WHERE id='{$filtered['id']}')";
 
     $result = mysqli_query($conn , $sql);
 
     $row = mysqli_fetch_array($result);
 
-    if($row[0] !== "1"){
-        if($filtered['pw'] === $filtered['re_pw']){
-            $sql = "INSERT INTO user (id,pw,re_pw) VALUES('{$filtered['id']}' , '{$filtered['pw']}' , '{$filtered['re_pw']}')";
-
-            $result = mysqli_query($conn , $sql);
-
-            if($result === true){
-                header("location: login.php");
-            }
-            else{
-                $_SESSION['error_txt'] = "오류가 발생했습니다. 다시 시도해주세요.";
-                header("location: index.php");
-            }
+    // 아이디 존재유무 확인 함수
+    $validateId = function ($exists_id) use($filtered){
+        if($exists_id === "1"){
+            $_SESSION['error_txt'] = "동일한 아이디가 존재합니다. 다시 시도해주세요.";
+            // 오류 발생시 입력했던 아이디 기억
+            $_SESSION['id'] = $filtered['id'];
+            header("location: join.php");
+            die();
         }
-        else{
+    };
+
+    // 비밀번호가 일치하는지 확인 함수
+    function validatePw($pw , $re_pw){
+        if($pw !== $re_pw){
             $_SESSION['error_txt'] = "비밀번호가 일치하지 않습니다. 다시 시도해주세요.";
-            header("location: index.php");
+            header("location: join.php");
+            die();
         }
     }
+
+    $validateId($row[0]);
+
+    validatePw($filtered['pw'] , $filtered['re_pw']);
+
+    $sql = "INSERT INTO user (id,pw,re_pw) VALUES('{$filtered['id']}' , '{$filtered['pw']}' , '{$filtered['re_pw']}')";
+
+    $result = mysqli_query($conn , $sql);
+
+    if($result === true){
+        header("location: login.php");
+    }
     else{
-        $_SESSION['error_txt'] = "동일한 아이디가 존재합니다. 다시 시도해주세요.";
-        header("location: index.php");
+        $_SESSION['error_txt'] = "오류가 발생했습니다. 다시 시도해주세요.";
+        header("location: join.php");
     }
 ?>

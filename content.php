@@ -61,45 +61,71 @@ $delete_js = "./asset/JS/delete.js";
         <div class="contDescription"><?=$filtered['description']?></div>
     </div> 
 
-    <!-- 수정 , 삭제 , 메인이동 버튼 -->
-        <!-- 검색한 게시글을 클릭한 뒤 검색내역 페이지로 이동할 수 있도록 처리 -->
+    <!-- 이전 , 수정 , 삭제 버튼 -->
     <div class="button">
-        <a href="
-            <?php
-                if(isset($_GET['keyword'])){
-                    echo "index.php?keyword={$_GET['keyword']}";
-                }
-                else{
-                    echo "index.php";
-                }
-            ?>">
-            <input type="button" value="<?php
-                if(isset($_GET['keyword'])){
-                    echo "이전";
-                }
-                else{
-                    echo "목록";
-                }
-            ?>" class="listBtn btn btn-default">
+        <!-- 검색페이지로 이동하기 위해 키워드 매개변수 사용 -->
+        <a href="<?php
+            if(isset($_GET['keyword'])){
+                $filtered_keyword = mysqli_real_escape_string($conn , $_GET['keyword']);
+
+                echo "index.php?id={$filtered_id}&keyword={$filtered_keyword}";
+            }
+            else{
+                echo "index.php";
+            }
+        ?>">
+            <input type="button" value="이전" class="listBtn btn btn-default">
         </a>
-                
-        <a href="update.php?id=<?=$filtered_id?>">
-            <input type="button" value="수정" class="modifyBtn btn btn-default">
+         
+        <!-- 로그인 후 수정 가능하며, keyword 매개변수로 이전페이지로 갈 수 있도록.-->
+        <a href="<?php
+            if(isset($_SESSION['user_id'])){
+                if(isset($_GET['keyword'])){
+                    $filtered_keyword = mysqli_real_escape_string($conn , $_GET['keyword']);
+
+                    echo "validate_update.php?id={$filtered_id}&keyword={$filtered_keyword}";
+                }
+                else{
+                    echo "validate_update.php?id={$filtered_id}";
+                }
+            }
+            else{
+                echo "login.php";
+            }
+        ?>">
+            <input type="<?php
+                if(isset($_SESSION['user_id'])){
+                    echo "button";
+                }
+                else{
+                    echo "hidden";
+                }
+            ?>" value="수정" class="modifyBtn btn btn-default">
         </a>
 
         <form action="process_delete.php" method="post" class="deleteForm">
             <input type="hidden" name="id" value="<?=$filtered_id?>">
-            <!-- 제목을 검색하고 클릭한 게시글이 삭제 되었을 때 검색 페이지로 이동할 수 있도록 처리 -->
+            <!-- 검색해서 삭제했을 경우에 대한 처리 / keyword 변수가 존재할 경우 서버로 데이터 보내기 -->
             <input type="hidden" name="<?php
+            if(isset($_GET['keyword'])){
+                echo "keyword";
+            }
+            ?>"
+            value="<?php
                 if(isset($_GET['keyword'])){
-                    echo "keyword";
-                }
-            ?>" value="<?php
-                if(isset($_GET['keyword'])){
-                    echo $_GET['keyword'];
+                    $filtered_keyword = mysqli_real_escape_string($conn , $_GET['keyword']);
+                    echo $filtered_keyword;
                 }
             ?>">
-            <input class="deleteBtn btn btn-default" type="button" value="삭제">
+            <!-- 유저가 로그인 유무에 따라서 버튼 타입 변경 -->
+            <input type="<?php
+                if(isset($_SESSION['user_id'])){
+                    echo "button";
+                }
+                else{
+                    echo "hidden";
+                }
+            ?>" value="삭제" class="deleteBtn btn btn-default" >
         </form>
     </div> 
 </body>

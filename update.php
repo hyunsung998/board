@@ -58,6 +58,17 @@ $update_js = "./asset/JS/update.js";
 <body>
     <form action="process_update.php" method="POST" class="form">
         <input type="hidden" name="id" value="<?=$filtered_id?>">
+        <!-- 검색해서 수정했을 경우에 대한 처리 / keyword 변수가 존재할 경우 서버로 데이터 보내기 -->
+        <input type="hidden" name="<?php
+            if(isset($_GET['keyword'])){
+                echo "keyword";
+            }
+        ?>" value="<?php
+            if(isset($_GET['keyword'])){
+                $filtered_keyword = mysqli_real_escape_string($conn , $_GET['keyword']);
+                echo $filtered_keyword;
+            }
+        ?>">
         <input class="title" type="text" name="title" placeholder="title" autocomplete="off"
         value="<?php
             // 오류 발생시 입력했던 내용을 기억하기위해 session에 저장

@@ -27,7 +27,7 @@
                     unset($_SESSION['title']);
                 }
                 ?>">
-        <textarea class="description" name="description" placeholder="description"><?php
+<textarea class="description" name="description" placeholder="description"><?php
         // 오류로 입력한 제목과 내용을 기억하기 위해 session 사용
         if(isset($_SESSION['description'])){
             echo $_SESSION['description'];

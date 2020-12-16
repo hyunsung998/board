@@ -5,7 +5,14 @@ CREATE TABLE topic(
     title VARCHAR(30) NOT NULL,
     description TEXT NOT NULL,
     created TIMESTAMP NOT NULL,
+    user_id INT NOT NULL,
     PRIMARY KEY(id)
 );
 
-INSERT INTO topic (title,description,created) VALUES("css" , "css is...." , NOW()),("css" , "css is...." , NOW()),("html" , "html is...." , NOW()),("html" , "html is...." , NOW()),("css" , "css is...." , NOW());
+CREATE TABLE user(
+    u_id INT(11) NOT NULL AUTO_INCREMENT,
+    id VARCHAR(20) NOT NULL,
+    pw VARCHAR(15) NOT NULL,
+    re_pw VARCHAR(15) NOT NULL,
+    PRIMARY KEY(id)
+);

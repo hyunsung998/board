@@ -63,11 +63,16 @@
     $result = mysqli_query($conn , $sql);
         
     if($result === true){
-        //redirect
-        header("location: content.php?id={$filtered_id}");
+        // 검색했을 때, 안했을 때 수정 시 로케이션 경로 변경
+        if(isset($_POST['keyword'])){
+            $filtered_keyword = mysqli_real_escape_string($conn , $_POST['keyword']);
+            header("location: content.php?id={$filtered_id}&keyword={$filtered_keyword}");
+        }
+        else{
+            header("location: content.php?id={$filtered_id}");
+        }
     }
     else{
-        //redirect
         $_SESSION['error_txt'] = "오류가 발생했습니다. 다시 시도해주세요.";
         header("location: index.php");
     }

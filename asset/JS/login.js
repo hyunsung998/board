@@ -8,7 +8,7 @@ function validate() {
     id_elem.focus();
   } else if (pw_elem.value === "") {
     alert("비밀번호를 입력해주세요.");
-    pwd_elem.focus();
+    pw_elem.focus();
   } else {
     login_form_elem.submit();
   }
@@ -21,7 +21,14 @@ function setLoginBtnClickEvent() {
 }
 
 function init() {
-  $("#id").focus();
+  var id_elem = document.querySelector("#id");
+  var pw_elem = document.querySelector("#pw");
+
+  if (id_elem.value === "") {
+    id_elem.focus();
+  } else {
+    pw_elem.focus();
+  }
   setLoginBtnClickEvent();
 }
 init();

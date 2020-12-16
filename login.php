@@ -1,4 +1,12 @@
 <?php
+    session_start();
+
+    if(isset($_SESSION['error_txt'])){
+        echo "<script>alert('{$_SESSION['error_txt']}')</script>";
+        unset($_SESSION['error_txt']);
+    }
+?>
+<?php
     $index_css = "./asset/CSS/index.css";
     $login_css = "./asset/CSS/login.css";
     $login_js = "./asset/JS/login.js";
@@ -18,8 +26,15 @@
 <body>
     <div class="login_group">
         <form action="process_login.php" method="POST" id="login_form">
-            <input type="text" name="id" id="id" placeholder="아이디" autocomplete="off" maxlength="20">
-            <input type="password" name="pwd" id="pw" placeholder="비밀번호" autocomplete="off" maxlength="15">
+            <input type="text" name="id" id="id" placeholder="아이디" autocomplete="off" maxlength="20" value="
+<?php
+    if(isset($_SESSION['id'])){
+        echo $_SESSION['id'];
+        unset($_SESSION['id']);
+    }
+?>
+">
+            <input type="password" name="pw" id="pw" placeholder="비밀번호" autocomplete="off" maxlength="15">
             <input type="button" value="로그인" id="login_btn">
         </form>
         <div class="join_wrap">
@@ -29,7 +44,7 @@
         </div>
         <div class="back_btn_wrap">
             <a href="index.php">
-                <button class="back_btn">이전</button>
+                <button class="back_btn">취소</button>
             </a>
         </div>
     </div>

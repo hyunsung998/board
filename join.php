@@ -1,4 +1,11 @@
 <?php
+    session_start();
+    if(isset($_SESSION['error_txt'])){
+        echo "<script>alert('{$_SESSION['error_txt']}')</script>";
+        unset($_SESSION['error_txt']);
+    }
+?>
+<?php
     $index_css = "./asset/CSS/index.css";
     $join_css = "./asset/CSS/join.css";
     $join_js = "./asset/JS/join.js";
@@ -22,7 +29,15 @@
                 <div class="info"> 
                     <div class="join_txt">아이디 입력</div>
                     <div class="form_txt">
-                        <input type="text" class="join_input id" name="id" id="id" placeholder="아이디를 입력해 주세요." autocomplete="off" maxlength="20">
+                        <input type="text" class="join_input id" name="id" id="id" placeholder="아이디를 입력해 주세요." autocomplete="off" maxlength="20"
+                        value="
+<?php
+    if(isset($_SESSION['id'])){
+        echo $_SESSION['id'];
+        unset($_SESSION['id']);
+    }
+?>
+">
                         <div class="msgbox">
                             <p>5~20자 영문, 숫자로 입력해 주세요.</p>
                             <p id="id_able"></p>
