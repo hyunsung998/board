@@ -42,7 +42,7 @@
     // 로그인한 유저의 u_id를 확인하는 함수
     $validateUserId = function ($user_id) use($conn){
         if(isset($user_id)){
-            $sql = "SELECT * FROM user WHERE id='{$user_id}'";
+            $sql = "SELECT * FROM users WHERE username='{$user_id}'";
 
             $result = mysqli_query($conn , $sql);
 
@@ -61,8 +61,8 @@
 
     $u_id = $validateUserId($_SESSION['user_id']);
 
-    $sql = "INSERT INTO topic(title , description , created , user_id) 
-    VALUES('{$filtered['title']}' , '{$filtered['description']}' , NOW() , '{$u_id}')";
+    $sql = "INSERT INTO topics(users_id , title , description , created) 
+    VALUES('{$u_id}' , '{$filtered['title']}' , '{$filtered['description']}' , NOW())";
 
     $result = mysqli_query($conn , $sql);
 

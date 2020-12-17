@@ -12,7 +12,7 @@
     $filtered_id = mysqli_real_escape_string($conn , $_POST['id']);
 
     // topic 테이블 id 존재유무 확인
-    $sql = "SELECT EXISTS (SELECT * FROM topic WHERE id={$filtered_id})";
+    $sql = "SELECT EXISTS (SELECT * FROM topics WHERE id={$filtered_id})";
 
     $result = mysqli_query($conn , $sql);
 
@@ -29,17 +29,17 @@
     validateId($row[0]);
 
     // topic 테이블 id에 맞는 row 확인
-    $sql = "SELECT * FROM topic WHERE id={$filtered_id}";
+    $sql = "SELECT * FROM topics WHERE id={$filtered_id}";
 
     $result = mysqli_query($conn , $sql);
 
     $row = mysqli_fetch_array($result);
 
     // topic 테이블 필드 중 user_id 선택
-    $user_id = htmlspecialchars($row[4]);
+    $user_id = htmlspecialchars($row[1]);
 
     // user 테이블 id 존재유무 확인
-    $sql = "SELECT EXISTS (SELECT * FROM user WHERE u_id={$user_id})";
+    $sql = "SELECT EXISTS (SELECT * FROM users WHERE id={$user_id})";
 
     $result = mysqli_query($conn , $sql);
 
@@ -48,7 +48,7 @@
     validateId($row[0]);
 
     // user 테이블 u_id와 일치하는 row 확인
-    $sql = "SELECT * FROM user WHERE u_id={$user_id}";
+    $sql = "SELECT * FROM users WHERE id={$user_id}";
 
     $result = mysqli_query($conn , $sql);
 
@@ -62,7 +62,7 @@
     // 로그인 유저와 작성자가 일치하는지 확인하는 클로저 함수
     $validateUser = function ($writer , $loginUser) use($filtered_id , $conn){
         if($writer === $loginUser){
-            $sql = "DELETE FROM topic WHERE id={$filtered_id}";
+            $sql = "DELETE FROM topics WHERE id={$filtered_id}";
 
             $result = mysqli_query($conn , $sql);
 

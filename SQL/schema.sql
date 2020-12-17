@@ -1,18 +1,17 @@
 CREATE DATABASE board;
 
-CREATE TABLE topic(
-    id INT(11) NOT NULL AUTO_INCREMENT,
-    title VARCHAR(30) NOT NULL,
-    description TEXT NOT NULL,
-    created TIMESTAMP NOT NULL,
-    user_id INT NOT NULL,
-    PRIMARY KEY(id)
-);
+CREATE TABLE `board`.`users`(
+	`id` INT NOT NULL AUTO_INCREMENT,
+    `username` VARCHAR(20) NOT NULL UNIQUE KEY,
+    `password` TEXT NOT NULL,
+    PRIMARY KEY(`id`));
 
-CREATE TABLE user(
-    u_id INT(11) NOT NULL AUTO_INCREMENT,
-    id VARCHAR(20) NOT NULL,
-    pw VARCHAR(15) NOT NULL,
-    re_pw VARCHAR(15) NOT NULL,
-    PRIMARY KEY(id)
-);
+CREATE TABLE `board`.`topics` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `users_id` INT NOT NULL,
+  `title` VARCHAR(100) NOT NULL,
+  `description` TEXT,
+  `created` TIMESTAMP NOT NULL,
+  `deleted_at` TIMESTAMP,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`users_id`) REFERENCES users(id));

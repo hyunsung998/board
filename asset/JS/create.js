@@ -1,15 +1,9 @@
-function confirmCancel() {
-  if (confirm("게시글 작성을 취소하시겠습니까?") == true) {
-    window.history.back();
-  } else {
-    return false;
-  }
-}
-
 function setCancelBtnClickEvent() {
   var cancel_btn_elem = document.querySelector(".cancelBtn");
 
-  cancel_btn_elem.addEventListener("click", confirmCancel);
+  cancel_btn_elem.addEventListener("click", function () {
+    window.history.back();
+  });
 }
 
 function confirmDatas() {

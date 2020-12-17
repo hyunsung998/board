@@ -18,7 +18,7 @@
     $filtered_id = mysqli_real_escape_string($conn , $_GET['id']);
 
     // 아이디가 데이터베이스 존재하는지 확인
-    $exists_sql = "SELECT EXISTS (SELECT * FROM topic WHERE id={$filtered_id})";
+    $exists_sql = "SELECT EXISTS (SELECT * FROM topics WHERE id={$filtered_id})";
 
     $exists_result = mysqli_query($conn , $exists_sql);
 
@@ -26,7 +26,7 @@
 
     // 1일 경우 true. 즉, 데이터베이스에 존재함. 0일 경우 false
     if($exists_row[0] === "1"){
-        $sql = "SELECT * FROM topic WHERE id={$filtered_id}";
+        $sql = "SELECT * FROM topics WHERE id={$filtered_id}";
 
         $result = mysqli_query($conn , $sql);
 

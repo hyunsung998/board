@@ -78,7 +78,7 @@
 
             // topic 테이블 필드 중 user_id를 통해서 작성자를 찾는 함수
             function validateUserId($user_id) {
-                $sql = "SELECT * FROM user WHERE u_id='{$user_id}'";
+                $sql = "SELECT * FROM users WHERE id='{$user_id}'";
 
                 $result = mysqli_query($GLOBALS['conn'] , $sql);
 
@@ -95,9 +95,9 @@
                     for($i=0; $i<$result_rows_count; $i++){
                         $board_id = $i+1;
                         $db_id = $result_rows[$i][0];
-                        $title = htmlspecialchars($result_rows[$i][1]); 
-                        $created = $result_rows[$i][3];
-                        $user_id = $result_rows[$i][4]; 
+                        $title = htmlspecialchars($result_rows[$i][2]); 
+                        $created = $result_rows[$i][4];
+                        $user_id = $result_rows[$i][1]; 
 
                         $login_id = validateUserId($user_id); // 함수 실행
 
@@ -140,7 +140,7 @@
                 // LIKE구문
                 // 쿼리문 WHERE절에 주로 사용되며 부분적으로 일치하는 칼럼을 찾을때 사용됩니다.
                 // SELECT * FROM [테이블명] WHERE LIKE [조건]
-                $sql = "SELECT * FROM topic WHERE title LIKE '%{$filtered_keyword}%' ORDER BY created DESC";
+                $sql = "SELECT * FROM topics WHERE title LIKE '%{$filtered_keyword}%' ORDER BY created DESC";
 
                 $result = mysqli_query($conn , $sql);
                                 
@@ -149,13 +149,15 @@
                 makeTableRow($result_rows);
             }
             else{
-                $sql = "SELECT * FROM topic ORDER BY created DESC";
+                $sql = "SELECT * FROM topics ORDER BY created DESC";
 
                 $result = mysqli_query($conn , $sql); 
                                 
                 $result_rows = mysqli_fetch_all($result);
 
-                makeTableRow($result_rows);
+                if(count($result_rows) !== 0){
+                    makeTableRow($result_rows);
+                }
             }
         ?>
     </table>

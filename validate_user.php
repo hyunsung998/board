@@ -11,14 +11,14 @@
 
     $filtered_id = mysqli_real_escape_string($conn , $_POST['id']);
 
-    $sql = "SELECT EXISTS (SELECT * FROM user WHERE id='{$filtered_id}')";
+    $sql = "SELECT EXISTS (SELECT * FROM users WHERE username='{$filtered_id}')";
 
     $result = mysqli_query($conn , $sql);
 
     $row = mysqli_fetch_array($result);
 
     if($row[0] === "1"){
-        $sql = "SELECT * FROM user WHERE id='{$filtered_id}'";
+        $sql = "SELECT * FROM users WHERE username='{$filtered_id}'";
         
         $result = mysqli_query($conn , $sql);
 

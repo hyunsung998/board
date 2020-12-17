@@ -14,7 +14,7 @@
         'pw' => mysqli_real_escape_string($conn , $_POST['pw'])
     );
 
-    $exists_sql = "SELECT EXISTS (SELECT * FROM user WHERE id='{$filtered_post_info['id']}')";
+    $exists_sql = "SELECT EXISTS (SELECT * FROM users WHERE username='{$filtered_post_info['id']}')";
 
     $exists_result = mysqli_query($conn , $exists_sql);
     
@@ -35,7 +35,7 @@
 
     $validateId ($exists_row[0]);
 
-    $sql = "SELECT * FROM user WHERE id='{$filtered_post_info['id']}'";
+    $sql = "SELECT * FROM users WHERE username='{$filtered_post_info['id']}'";
 
     $result = mysqli_query($conn , $sql);
 
@@ -46,9 +46,10 @@
         'pw' => htmlspecialchars($row[2])
     );
 
-    if($filtered_post_info['pw'] === $filtered_db_info['pw']){
+    $encryption_pw = md5($filtered_post_info['pw']);
+
+    if($encryption_pw === $filtered_db_info['pw']){
         $_SESSION['user_id'] = $filtered_db_info['id']; // index.php에서 로그인한 사용자에 대한 정보를 기억하기 위한 세션사용
-        $HTTP_REFERER = $_SERVER['HTTP_REFERER']; 
         header("location: index.php");
     }
     else{

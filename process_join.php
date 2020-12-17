@@ -15,7 +15,7 @@
         're_pw' => mysqli_real_escape_string($conn , $_POST['re_pw'])
     );
 
-    $sql = "SELECT EXISTS (SELECT * FROM user WHERE id='{$filtered['id']}')";
+    $sql = "SELECT EXISTS (SELECT * FROM users WHERE id='{$filtered['id']}')";
 
     $result = mysqli_query($conn , $sql);
 
@@ -45,7 +45,8 @@
 
     validatePw($filtered['pw'] , $filtered['re_pw']);
 
-    $sql = "INSERT INTO user (id,pw,re_pw) VALUES('{$filtered['id']}' , '{$filtered['pw']}' , '{$filtered['re_pw']}')";
+    // DB에 비밀번호를 저장시 해킹의 위험으로 인하여 md5() 단방향 암호화 사용
+    $sql = "INSERT INTO users (username , password) VALUES('{$filtered['id']}' , md5('{$filtered['pw']}'))";
 
     $result = mysqli_query($conn , $sql);
 

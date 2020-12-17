@@ -11,7 +11,7 @@
 
     $filtered_id = mysqli_real_escape_string($conn , $_POST['id']);
 
-    $exists_sql = "SELECT EXISTS (SELECT * FROM topic WHERE id={$filtered_id})";
+    $exists_sql = "SELECT EXISTS (SELECT * FROM topics WHERE id={$filtered_id})";
 
     $exists_result = mysqli_query($conn , $exists_sql);
 
@@ -58,7 +58,7 @@
         'description' => mysqli_real_escape_string($conn , $_POST['description'])
     );
 
-    $sql = "UPDATE topic SET title='{$filtered['title']}' , description='{$filtered['description']}' WHERE id={$filtered_id}";
+    $sql = "UPDATE topics SET title='{$filtered['title']}' , description='{$filtered['description']}' WHERE id={$filtered_id}";
     
     $result = mysqli_query($conn , $sql);
         
