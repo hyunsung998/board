@@ -1,6 +1,6 @@
-function confirmData() {
-  var title = document.querySelector(".title");
-  var form = document.querySelector(".form");
+function validateText() {
+  var title = document.querySelector("#title");
+  var form = document.querySelector("#search_form");
   var title_value = title.value;
 
   if (title_value === "") {
@@ -11,13 +11,13 @@ function confirmData() {
 }
 
 function setSubmitBtnClickEvent() {
-  var submitBtn_elem = document.querySelector(".submitBtn");
+  var submitBtn_elem = document.querySelector("#submitBtn");
 
-  submitBtn_elem.addEventListener("click", confirmData);
+  submitBtn_elem.addEventListener("click", validateText);
 }
 
 function init() {
-  var form = document.querySelector(".form");
+  var form = document.querySelector("#search_form");
 
   form.addEventListener("submit", function (e) {
     e.preventDefault();

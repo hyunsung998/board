@@ -1,17 +1,21 @@
 CREATE DATABASE board;
 
+USE board;
+
 CREATE TABLE `board`.`users`(
 	`id` INT NOT NULL AUTO_INCREMENT,
-    `username` VARCHAR(20) NOT NULL UNIQUE KEY,
-    `password` TEXT NOT NULL,
-    PRIMARY KEY(`id`));
+  `username` VARCHAR(20) NOT NULL UNIQUE KEY,
+  `password` TEXT NOT NULL,
+  `created_at` TIMESTAMP NOT NULL,
+  `deleted_at` TIMESTAMP NULL DEFAULT NULL,
+  PRIMARY KEY(`id`));
 
 CREATE TABLE `board`.`topics` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `users_id` INT NOT NULL,
+  `user_id` INT NOT NULL,
   `title` VARCHAR(100) NOT NULL,
   `description` TEXT,
-  `created` TIMESTAMP NOT NULL,
-  `deleted_at` TIMESTAMP,
+  `created_at` TIMESTAMP NOT NULL,
+  `deleted_at` TIMESTAMP NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`users_id`) REFERENCES users(id));
+  FOREIGN KEY (`user_id`) REFERENCES users(id));

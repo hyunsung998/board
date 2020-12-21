@@ -1,4 +1,12 @@
 // 가입하기버튼 클릭시 기입한 정보가 문제없는지 확인
+function setCancelBtnClickEvent() {
+  var cancel_btn_elem = document.querySelector("#cancel_btn");
+
+  cancel_btn_elem.addEventListener("click", function () {
+    window.history.back();
+  });
+}
+
 function validateAllInfo() {
   var regex_id = /^[a-z]+[a-z0-9]{4,19}$/;
   var regex_pw = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
@@ -154,6 +162,7 @@ function init() {
   $("#pw").keyup(validatePw);
   $("#re_pw").keyup(validateRePw);
   setJoinBtnClickEvent();
+  setCancelBtnClickEvent();
 }
 
 init();

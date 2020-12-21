@@ -1,5 +1,5 @@
 function setCancelBtnClickEvent() {
-  var cancel_btn_elem = document.querySelector(".cancelBtn");
+  var cancel_btn_elem = document.querySelector("#cancelBtn");
 
   cancel_btn_elem.addEventListener("click", function () {
     window.history.back();
@@ -7,9 +7,9 @@ function setCancelBtnClickEvent() {
 }
 
 function confirmDatas() {
-  var title = document.querySelector(".title");
-  var description = document.querySelector(".description");
-  var form = document.querySelector(".form");
+  var title = document.querySelector("#title");
+  var description = document.querySelector("#description");
+  var form = document.querySelector("#create_form");
   var title_value = title.value;
   var description_value = description.value;
 
@@ -25,19 +25,19 @@ function confirmDatas() {
 }
 
 function setCreateSubmitBtnClickEvent() {
-  var create_submitBtn_elem = document.querySelector(".submitBtn");
+  var create_submitBtn_elem = document.querySelector("#submitBtn");
 
   create_submitBtn_elem.addEventListener("click", confirmDatas);
 }
 
 function init() {
-  var form = document.querySelector(".form");
+  var form = document.querySelector("#create_form");
 
   form.addEventListener("submit", function (e) {
     e.preventDefault();
   });
 
-  var title = document.querySelector(".title");
+  var title = document.querySelector("#title");
 
   title.focus();
 

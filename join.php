@@ -29,12 +29,11 @@
                 <div class="info"> 
                     <div class="join_txt">아이디 입력</div>
                     <div class="form_txt">
-                        <input type="text" class="join_input id" name="id" id="id" placeholder="아이디를 입력해 주세요." autocomplete="off" maxlength="20"
+                        <input type="text" class="join_input id" name="username" id="id" placeholder="아이디를 입력해 주세요." autocomplete="off" maxlength="20"
                         value="
 <?php
-    if(isset($_SESSION['id'])){
-        echo $_SESSION['id'];
-        unset($_SESSION['id']);
+    if(isset($_SESSION['username'])){
+        echo $_SESSION['username'];
     }
 ?>
 ">
@@ -48,8 +47,13 @@
                 <div class="info">
                     <div class="join_txt">비밀번호 입력</div>
                     <div class="form_txt form_txt_pw">
-                        <input type="password" class="join_input pw" name="pw" id="pw" placeholder="비밀번호를 입력해 주세요." autocomplete="off" maxlength="15">
-                        <input type="password" class="join_input pw" name="re_pw" id="re_pw" placeholder="비밀번호를 재확인해 주세요." autocomplete="off" maxlength="15">
+                        <input type="password" class="join_input pw" name="password" id="pw" placeholder="비밀번호를 입력해 주세요." autocomplete="off" maxlength="15" <?php
+                        if(isset($_SESSION['username'])){
+                            echo "autofocus";
+                            unset($_SESSION['username']);
+                        }
+                        ?>>
+                        <input type="password" class="join_input pw" name="re_password" id="re_pw" placeholder="비밀번호를 재확인해 주세요." autocomplete="off" maxlength="15">
                         <div class="msgbox">
                                 <p>8~15자 영문, 숫자, 특수문자 조합입니다.</p>
                                 <p id="pw_able"></p>
@@ -63,7 +67,7 @@
             </div>
         </form>
         <div class="cancel_btn_wrap">
-            <a href="login.php"><button class="cancel_btn">취소하기</button></a>
+            <button id="cancel_btn">취소하기</button>
         </div>
     </div>
 </body>

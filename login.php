@@ -26,15 +26,15 @@
 <body>
     <div class="login_group">
         <form action="process_login.php" method="POST" id="login_form">
-            <input type="text" name="id" id="id" placeholder="아이디" autocomplete="off" maxlength="20" value="
+            <input type="text" name="username" id="id" placeholder="아이디" autocomplete="off" maxlength="20" value="
 <?php
-    if(isset($_SESSION['id'])){
-        echo $_SESSION['id'];
-        unset($_SESSION['id']);
+    if(isset($_SESSION['username'])){
+        echo $_SESSION['username'];
+        unset($_SESSION['username']);
     }
 ?>
 ">
-            <input type="password" name="pw" id="pw" placeholder="비밀번호" autocomplete="off" maxlength="15">
+            <input type="password" name="password" id="pw" placeholder="비밀번호" autocomplete="off" maxlength="15">
             <input type="button" value="로그인" id="login_btn">
         </form>
         <div class="join_wrap">

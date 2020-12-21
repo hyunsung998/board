@@ -21,11 +21,14 @@
 <body>
     <!-- 로그인 -->
     <?php
-        if(!isset($_SESSION['user_id'])){
+        if(!isset($_SESSION['username'])){
     ?>
         <div class="index_login_wrap">
             <a href="login.php">
                 <button class="index_login_btn">로그인</button>
+            </a>
+            <a href="join.php">
+                <button class="index_join_btn">회원가입</button>
             </a>
         </div>
     <?php
@@ -33,7 +36,7 @@
         else{
     ?>
         <div class="index_login_wrap">
-            <p><?=$_SESSION['user_id']?>님 환영합니다.</p>
+            <p><?=$_SESSION['username']?>님 환영합니다.</p>
             <a href="logout.php">로그아웃</a>
         </div>
     <?php
@@ -41,24 +44,21 @@
     ?>
 
     <div class="header">
-        <h1>게시판</h1>
+        <a href="index.php"><h1>게시판</h1></a>
         <p>자유롭게 게시글을 작성해주세요.</p>
     </div>
 
     <!-- 검색창 -->
-    <form action="index.php" method="GET" class="form">
-        <div class="form-group">
-        <input type="text" name="keyword" autocomplete="off" placeholder="제목을 입력해주세요." class="title form-control"
+    <form action="index.php" method="GET" id="search_form">
+        <input type="text" name="keyword" autocomplete="off" id="title"
         value="<?=(isset($_GET['keyword'])) ? $_GET['keyword'] : "" ?>">
-        <!-- 삼항연산자 사용하여 input에 검색어 표시 -->
-        </div>
-        <input type="button" value="검색" class="submitBtn btn btn-default">
+        <input type="button" value="검색" id="submitBtn">
     </form>
 
     <!-- 테이블 -->
-    <table class="test table table-condensed">
+    <table class="table table-condensed">
         <tr>
-            <td>No</td>
+            <td>No.</td>
             <td>제목</td>
             <td>작성자</td>
             <td>등록일</td>
@@ -76,40 +76,41 @@
                 $filtered_keyword = mysqli_real_escape_string($conn , $_GET['keyword']);
             }
 
-            // topic 테이블 필드 중 user_id를 통해서 작성자를 찾는 함수
-            function validateUserId($user_id) {
+            function validateUserName($user_id) {
                 $sql = "SELECT * FROM users WHERE id='{$user_id}'";
 
                 $result = mysqli_query($GLOBALS['conn'] , $sql);
 
-                $row = mysqli_fetch_array($result);
+                $users_row = mysqli_fetch_array($result);
 
-                return $row[1];
+                $username = $users_row[1];
+
+                return $username;
             }
 
-            // 테이블 로우 생성 함수
-            function makeTableRow($result_rows){
-                $result_rows_count = count($result_rows);
+            function makeTableRows($rows){
+                $rows_count = count($rows);
 
-                if($result_rows_count !== 0){
-                    for($i=0; $i<$result_rows_count; $i++){
-                        $board_id = $i+1;
-                        $db_id = $result_rows[$i][0];
-                        $title = htmlspecialchars($result_rows[$i][2]); 
-                        $created = $result_rows[$i][4];
-                        $user_id = $result_rows[$i][1]; 
+                if($rows_count !== 0){
+                    for($i=0; $i<$rows_count; $i++){
+                        $no = $i+1;
+                        $topic_id = $rows[$i][0];
+                        $user_id = $rows[$i][1]; 
+                        $title = htmlspecialchars($rows[$i][2]); 
+                        $created = $rows[$i][4];
 
-                        $login_id = validateUserId($user_id); // 함수 실행
+
+                        $username = validateUserName($user_id); 
 
                         if(isset($_GET['keyword'])){
                             $html = 
                             "
                             <tr>
-                            <td>{$board_id}</td>
+                            <td>{$no}</td>
                             <td>
-                            <a href=\"content.php?id={$db_id}&keyword={$GLOBALS['filtered_keyword']}\">{$title}</a>
+                            <a href=\"content.php?id={$topic_id}&keyword={$GLOBALS['filtered_keyword']}\">{$title}</a>
                             </td>
-                            <td>{$login_id}</td>
+                            <td>{$username}</td>
                             <td>{$created}</td>
                             </tr>
                             ";
@@ -118,11 +119,11 @@
                             $html = 
                             "
                             <tr>
-                            <td>{$board_id}</td>
+                            <td>{$no}</td>
                             <td>
-                            <a href=\"content.php?id={$db_id}\">{$title}</a>
+                            <a href=\"content.php?id={$topic_id}\">{$title}</a>
                             </td>
-                            <td>{$login_id}</td>
+                            <td>{$username}</td>
                             <td>{$created}</td>
                             </tr>
                             ";
@@ -135,73 +136,63 @@
                 }
             }
 
-            // 검색을 했을 때와 안했을 때 테이블 로우를 생성하는 두 가지 경우
             if(isset($_GET['keyword'])){
-                // LIKE구문
-                // 쿼리문 WHERE절에 주로 사용되며 부분적으로 일치하는 칼럼을 찾을때 사용됩니다.
-                // SELECT * FROM [테이블명] WHERE LIKE [조건]
-                $sql = "SELECT * FROM topics WHERE title LIKE '%{$filtered_keyword}%' ORDER BY created DESC";
+                $sql = "SELECT * FROM topics WHERE title LIKE '%{$filtered_keyword}%' ORDER BY created_at DESC";
 
                 $result = mysqli_query($conn , $sql);
                                 
-                $result_rows = mysqli_fetch_all($result);
+                $rows = mysqli_fetch_all($result);
 
-                makeTableRow($result_rows);
+                makeTableRows($rows);
             }
             else{
-                $sql = "SELECT * FROM topics ORDER BY created DESC";
+                $sql = "SELECT * FROM topics ORDER BY created_at DESC";
 
                 $result = mysqli_query($conn , $sql); 
                                 
-                $result_rows = mysqli_fetch_all($result);
+                $rows = mysqli_fetch_all($result);
 
-                if(count($result_rows) !== 0){
-                    makeTableRow($result_rows);
+                if(count($rows) !== 0){
+                    makeTableRows($rows);
                 }
             }
         ?>
     </table>
+
+    <!-- 글쓰기 , 목록 버튼 -->
     <div class="button">
-        <p class="moveBtn">
-            <a href="index.php">
-                <!-- 검색했을 때 목록 이동 버튼이 생성되도록 처리 -->
-                <input type="<?php
-                    if(isset($_GET['keyword'])){
-                        echo "button";
-                    }
-                    else{
-                        echo "hidden";
-                    }
-                ?>" value="목록" class="listBtn btn btn-default">
-            </a>
-        </p>   
-        <p>
-            <!-- 로그인 아이디가 있는지 없는지 확인 -->
-            <a href="<?php
-                if(isset($_SESSION['user_id'])){
-                    echo "create.php";
+            <?php
+                if(isset($_GET['keyword'])){
+            ?>
+                    <a href="index.php">
+                        <input type="button" value="목록" class="listBtn btn btn-default">
+                    </a>
+            <?php
                 }
-                else{
-                    echo "login.php";
+            ?>
+            <?php
+                if(!isset($_GET['keyword'])){
+            ?>
+                    <a href="<?php
+                        if(isset($_SESSION['username'])){
+                            echo "create.php";
+                        }
+                        else{
+                            echo "login.php";
+                        }
+                    ?>">
+                        <input type="button" value="글쓰기" class="writeBtn btn btn-default">
+                    </a>
+            <?php
                 }
-            ?>">
-            <!-- 검색할 경우 글쓰기 버튼이 없어지도록 -->
-                <input type="<?php
-                    if(isset($_GET['keyword'])){
-                        echo "hidden";
-                    }
-                    else{
-                        echo "button";
-                    }
-                ?>" value="글쓰기" class="writeBtn btn btn-default">
-            </a>
-        </p>        
+            ?>  
     </div>
 </body>
-<!-- 브라우저에서는 한 번 불러온 css,js 파일을 캐시 해두기 때문에 수정을 해도 바로 적용이 안된다.
-filemtime 함수는 파일 내용이 마지막으로 수정 된 시간을 반환함. -->
 <script src=<?="./asset/JS/search.js?".filemtime($search_js)?>></script>
 </html>
+
+<!-- 브라우저에서는 한 번 불러온 css,js 파일을 캐시 해두기 때문에 수정을 해도 바로 적용이 안된다.
+filemtime 함수는 파일 내용이 마지막으로 수정 된 시간을 반환함. -->
 
 <!-- function use(closures);
 클로저는 익명함수입니다. 외부 함수의 문맥에 접근할 수 있습니다.
@@ -213,3 +204,7 @@ $makeTableRow = function ($sql) use($conn){
     $result = mysqli_query($conn , $sql);
 };
 함수를 호출할때 함수명 앞에 $ 붙여야함. -->
+
+<!-- LIKE구문
+쿼리문 WHERE절에 주로 사용되며 부분적으로 일치하는 칼럼을 찾을때 사용됩니다.
+SELECT * FROM [테이블명] WHERE LIKE [조건] -->

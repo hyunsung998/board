@@ -1,6 +1,4 @@
 @import "reset.css";
-@import "common.css";
-@import "content.css";
 
 body {
   padding: 50px 100px;
@@ -41,7 +39,8 @@ body {
 }
 .index_login_wrap {
   display: flex;
-  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 .index_login_btn {
   padding: 10px 100px;
@@ -49,4 +48,39 @@ body {
   border: 0px;
   background-color: steelblue;
   color: white;
+  margin-bottom: 15px;
+}
+.index_join_btn {
+  padding: 10px 95px;
+  border-radius: 5px;
+  border: 0px;
+  background-color: steelblue;
+  color: white;
+}
+#search_form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#title {
+  width: 300px;
+  margin: 20px 20px;
+}
+#description {
+  width: 300px;
+  height: 100px;
+  margin-bottom: 10px;
+}
+#cancelBtn {
+  margin-top: 20px;
+}
+#create_form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#update_form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

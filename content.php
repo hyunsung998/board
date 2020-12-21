@@ -17,15 +17,13 @@
 
     $filtered_id = mysqli_real_escape_string($conn , $_GET['id']);
 
-    // 아이디가 데이터베이스 존재하는지 확인
-    $exists_sql = "SELECT EXISTS (SELECT * FROM topics WHERE id={$filtered_id})";
+    $sql = "SELECT EXISTS (SELECT * FROM topics WHERE id={$filtered_id})";
 
-    $exists_result = mysqli_query($conn , $exists_sql);
+    $result = mysqli_query($conn , $sql);
 
-    $exists_row = mysqli_fetch_array($exists_result);
+    $row = mysqli_fetch_array($result);
 
-    // 1일 경우 true. 즉, 데이터베이스에 존재함. 0일 경우 false
-    if($exists_row[0] === "1"){
+    if($row[0] === "1"){
         $sql = "SELECT * FROM topics WHERE id={$filtered_id}";
 
         $result = mysqli_query($conn , $sql);
@@ -45,6 +43,7 @@
 ?>
 <?php
 $index_css = "./asset/CSS/index.css";
+$content_css = "./asset/CSS/content.css";
 $delete_js = "./asset/JS/delete.js";
 ?>
 <!DOCTYPE html>
@@ -53,6 +52,7 @@ $delete_js = "./asset/JS/delete.js";
     <meta charset="UTF-8">
     <title>Content</title>
     <link rel="stylesheet" href=<?="./asset/CSS/index.css?".filemtime($index_css)?>>
+    <link rel="stylesheet" href=<?="./asset/CSS/content.css?".filemtime($content_css)?>>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 </head>
 <body>
@@ -63,7 +63,7 @@ $delete_js = "./asset/JS/delete.js";
 
     <!-- 이전 , 수정 , 삭제 버튼 -->
     <div class="button">
-        <!-- 검색페이지로 이동하기 위해 키워드 매개변수 사용 -->
+        <!-- 이전 버튼 -->
         <a href="<?php
             if(isset($_GET['keyword'])){
                 $filtered_keyword = mysqli_real_escape_string($conn , $_GET['keyword']);
@@ -77,35 +77,33 @@ $delete_js = "./asset/JS/delete.js";
             <input type="button" value="이전" class="listBtn btn btn-default">
         </a>
          
-        <!-- 로그인 후 수정 가능하며, keyword 매개변수로 이전페이지로 갈 수 있도록.-->
+        <!-- 수정 버튼 -->
+        <?php
+            if(isset($_SESSION['username'])){
+        ?>
         <a href="<?php
-            if(isset($_SESSION['user_id'])){
                 if(isset($_GET['keyword'])){
                     $filtered_keyword = mysqli_real_escape_string($conn , $_GET['keyword']);
 
-                    echo "validate_update.php?id={$filtered_id}&keyword={$filtered_keyword}";
+                    echo "update.php?id={$filtered_id}&keyword={$filtered_keyword}";
                 }
                 else{
-                    echo "validate_update.php?id={$filtered_id}";
+                    echo "update.php?id={$filtered_id}";
                 }
-            }
-            else{
-                echo "login.php";
-            }
         ?>">
-            <input type="<?php
-                if(isset($_SESSION['user_id'])){
-                    echo "button";
-                }
-                else{
-                    echo "hidden";
-                }
-            ?>" value="수정" class="modifyBtn btn btn-default">
+            <input type="button" value="수정" class="modifyBtn btn btn-default">
         </a>
+        <?php
+            }
+        ?>
 
-        <form action="process_delete.php" method="post" class="deleteForm">
+        <!-- 삭제 버튼  -->
+        <?php
+            if(isset($_SESSION['username'])){
+        ?>
+        <form action="process_delete.php" method="POST" id="deleteForm">
             <input type="hidden" name="id" value="<?=$filtered_id?>">
-            <!-- 검색해서 삭제했을 경우에 대한 처리 / keyword 변수가 존재할 경우 서버로 데이터 보내기 -->
+            <!-- 검색해서 삭제했을 경우에 대한 처리 -->
             <input type="hidden" name="<?php
             if(isset($_GET['keyword'])){
                 echo "keyword";
@@ -117,16 +115,11 @@ $delete_js = "./asset/JS/delete.js";
                     echo $filtered_keyword;
                 }
             ?>">
-            <!-- 유저가 로그인 유무에 따라서 버튼 타입 변경 -->
-            <input type="<?php
-                if(isset($_SESSION['user_id'])){
-                    echo "button";
-                }
-                else{
-                    echo "hidden";
-                }
-            ?>" value="삭제" class="deleteBtn btn btn-default" >
+            <input type="button" value="삭제" id="deleteBtn" class="btn btn-default" >
         </form>
+        <?php
+            }
+        ?>
     </div> 
 </body>
 <script src=<?="./asset/JS/delete.js?".filemtime($delete_js)?>></script>
