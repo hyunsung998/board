@@ -35,9 +35,15 @@
     if(!isset($_SESSION['username'])){
         $_SESSION['error_txt'] = "비정상적인 접근입니다.";
         header("location: index.php");
+        die();
     }
     else{
-        validationText($_POST['title'] , $_POST['description']);
+        if(!isset($_POST['title'])){
+            $_SESSION['error_txt'] = "비정상적인 접근입니다.";
+            header("location: index.php");
+        }
+        else{
+            validationText($_POST['title'] , $_POST['description']);
 
         $filtered = array(
             'title' => mysqli_real_escape_string($conn , $_POST['title']),
@@ -74,6 +80,7 @@
             header("location: index.php");
         }
     }
+        }
 ?>
 
 

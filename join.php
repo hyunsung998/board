@@ -10,6 +10,13 @@
     $join_css = "./asset/CSS/join.css";
     $join_js = "./asset/JS/join.js";
 ?>
+<?php
+    if(isset($_SESSION['username'])){
+        $_SESSION['error_txt'] = "비정상적인 접근입니다.";
+        header("location: index.php");
+        die();
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

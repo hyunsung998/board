@@ -29,8 +29,9 @@ function validateAllInfo() {
       // 비밀번호가 정규표현식에 맞지 않은 경우,
       pw_elem.focus();
     } else {
-      if (!regex_pw.test(re_pw_value)) {
-        // 재확인 비밀번호가 정규표현식에 맞지 않은 경우,
+      if (!regex_pw.test(re_pw_value) || pw_value !== re_pw_value) {
+        // 재확인 비밀번호가 정규표현식에 맞지 않은 경우
+        // 비밀번호 , 비밀번호 재확인 일치하지 않는 경우
         re_pw_elem.focus();
       } else {
         join_form_elem.submit();
@@ -46,7 +47,6 @@ function setJoinBtnClickEvent() {
 }
 
 function validateRePw() {
-  // *질문* 특수문자 2개 이상 사용시 재확인 비밀번호와 일치하지않음
   var regex = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
   var pw_elem = document.querySelector("#pw");
   var pw_value = pw_elem.value;
@@ -60,6 +60,10 @@ function validateRePw() {
       pw_able_elem.style.display = "block";
       pw_unable_elem.style.display = "none";
       pw_able_elem.innerHTML = "비밀번호가 일치합니다.";
+    } else {
+      pw_unable_elem.style.display = "block";
+      pw_able_elem.style.display = "none";
+      pw_unable_elem.innerHTML = "비밀번호가 일치하지 않습니다.";
     }
   } else {
     pw_unable_elem.style.display = "block";
